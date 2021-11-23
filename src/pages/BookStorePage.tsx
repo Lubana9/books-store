@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { useCallback, useState } from "react";
 
+import BookCard from "@components/BookCard";
 import SearchInput from "@components/input";
 import SearchButton from "@components/SearchButton";
 import "@styles/style.css";
@@ -32,6 +33,9 @@ const BookStorePage: React.FC = () => {
           <SortBooks data={"cat"} onSort={handelSort} />
           Sorting by: <SortBooks data={"relev"} onSort={handelSort} />
         </Space>
+      </div>
+      <div className="container grid grid--1x3">
+        <BookCard data={"data"} />
       </div>
     </div>
   );
