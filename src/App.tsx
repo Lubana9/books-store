@@ -1,11 +1,14 @@
-import React from "react";
+import { BrowserRouter, Route, Navigate } from "react-router-dom";
 
-import logo from "./logo.svg";
-import "./App.css";
 import BookStorePage from "./pages/BookStorePage";
 
 function App() {
-  return <BookStorePage />;
+  return (
+    <BrowserRouter>
+      <Route path="/store" element={<BookStorePage />} />
+      <Navigate to="/store" />
+    </BrowserRouter>
+  );
 }
 
 export default App;

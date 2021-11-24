@@ -22,7 +22,7 @@ export type BookItemModule = {
   };
 };
 
-export const normalizeRepoItem = (from: BookItemApi): BookItemModule => ({
+export const normalizeItem = (from: BookItemApi): BookItemModule => ({
   id: from.id,
   volumeInfo: from.volumeInfo,
 });

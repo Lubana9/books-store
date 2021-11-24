@@ -6,60 +6,69 @@ import SearchInput from "@components/input";
 import SearchButton from "@components/SearchButton";
 import "@styles/style.css";
 import SortBooks from "@components/SortBooks";
+import { Meta } from "@utils/Meta";
+import { useLocalStore } from "@utils/UseLocalStore";
 import { Select, Skeleton, Space } from "antd";
 import axios from "axios";
+import { observer } from "mobx-react-lite";
 import { BookItemModule } from "src/modules/bookItem";
+import GBookStore from "src/store/GBookStore";
 
 const BookStorePage: React.FC = () => {
-  const [value, setValue] = useState("js");
-  const [list, setList] = useState<BookItemModule[]>([]);
-  const [loading, setIsLoading] = useState(false);
-  const [sort, setSort] = useState("");
-
-  const [url, setUrl] = useState(
-    `https://www.googleapis.com/books/v1/volumes?q=js&maxResults=40`
-  );
+  const gBookStore = useLocalStore(() => new GBookStore());
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   axios.get(url).then((res: any) => {
+  //     setIsLoading(false);
+  //     setList(res.data.items);
+  //   });
+  // }, [url]);
+  // const handelChange = (value: string) => {
+  //   return setValue(value);
+  // };
 
   useEffect(() => {
-    setIsLoading(true);
-    axios.get(url).then((res: any) => {
-      setIsLoading(false);
-      setList(res.data.items);
+    gBookStore.getBooksList({
+      BookName: "js",
     });
-  }, [url]);
-  const handelChange = (value: string) => {
-    return setValue(value);
-  };
+  }, [gBookStore]);
 
-  const sortedBooks = list.sort((a: BookItemModule, b: BookItemModule): any => {
-    if (sort === "Newest") {
-      return (
-        parseInt(b.volumeInfo.publishedDate) -
-        parseInt(a.volumeInfo.publishedDate)
-      );
-    } else if (sort === "Oldest") {
-      return (
-        parseInt(a.volumeInfo.publishedDate) -
-        parseInt(b.volumeInfo.publishedDate)
-      );
+  const handelChange = useCallback(
+    (value: string): string => {
+      return gBookStore.setValue(value);
+    },
+    [gBookStore]
+  );
+  const handelClick = useCallback(() => {
+    gBookStore.getBooksList({
+      BookName: gBookStore.value,
+    });
+  }, [gBookStore]);
+  const sortedBooks = gBookStore.list.sort(
+    (a: BookItemModule, b: BookItemModule): any => {
+      if (gBookStore.sort === "Newest") {
+        return (
+          parseInt(b.volumeInfo.publishedDate) -
+          parseInt(a.volumeInfo.publishedDate)
+        );
+      } else if (gBookStore.sort === "Oldest") {
+        return (
+          parseInt(a.volumeInfo.publishedDate) -
+          parseInt(b.volumeInfo.publishedDate)
+        );
+      }
     }
-  });
+  );
   const handelSort = (value: string) => {
-    return setSort(value);
+    return gBookStore.setSort(value);
   };
 
   return (
     <div className="background--img">
       <div className="grid grid--1x2 ">
         <form className="input--group">
-          <SearchInput onChange={handelChange} value={value} />
-          <SearchButton
-            onClick={() =>
-              setUrl(
-                `https://www.googleapis.com/books/v1/volumes?q=${value}&maxResults=40`
-              )
-            }
-          />
+          <SearchInput onChange={handelChange} value={gBookStore.value} />
+          <SearchButton onClick={handelClick} isLoading={gBookStore.meta} />
         </form>
       </div>
       <div className=" container select--item sort_input">
@@ -76,7 +85,7 @@ const BookStorePage: React.FC = () => {
         </Select>
       </div>
 
-      {loading ? (
+      {gBookStore.meta === Meta.loading ? (
         <Skeleton active />
       ) : (
         <>
@@ -91,4 +100,4 @@ const BookStorePage: React.FC = () => {
   );
 };
 
-export default BookStorePage;
+export default observer(BookStorePage);

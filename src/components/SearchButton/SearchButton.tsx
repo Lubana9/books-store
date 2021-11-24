@@ -7,7 +7,7 @@ import "antd/dist/antd.css";
 
 export type ButtonProps = {
   onClick: (e: React.MouseEvent) => void;
-  isLoading?: Meta;
+  isLoading: Meta;
 };
 const SearchButton: React.FC<ButtonProps> = ({ onClick, isLoading }) => {
   return (
