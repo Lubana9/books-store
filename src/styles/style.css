@@ -6,22 +6,16 @@
 }
 .input--group {
   display: flex;
-  flex-direction: row;
-
-  width: 50%;
+  width: 100%;
+  margin-top: 30px;
 }
 
-.card--container {
-  margin-left: 100px;
-}
 .grid {
   display: grid;
+  justify-content: center;
 }
 .grid > .grid--1x2 {
   grid-template-columns: 2fr 1fr;
-}
-.grid--1x2 {
-  margin: 20px 0 30px 0;
 }
 
 .grid--1x4 {
@@ -33,8 +27,16 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
+  .card--container {
+    margin-left: 100px;
+  }
 }
 
 .background--img {
   background: url(../img/books_background.jpg);
+}
+
+.sort_input {
+  border-radius: 10px;
+  opacity: 0.9;
 }

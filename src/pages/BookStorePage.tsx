@@ -11,16 +11,15 @@ import axios from "axios";
 import { BookItemModule } from "src/modules/bookItem";
 
 const BookStorePage: React.FC = () => {
-  const [value, setValue] = useState("search+terms");
+  const [value, setValue] = useState("js");
   const [list, setList] = useState<BookItemModule[]>([]);
   const [loading, setIsLoading] = useState(false);
   const [sort, setSort] = useState("");
-  const apiKey = "AIzaSyD3G6hLz-Kmkaufk0SYiI6nhQB2KzhLSFM";
 
   const [url, setUrl] = useState(
-    `https://www.googleapis.com/books/v1/volumes?q=search+terms&maxResults=40`
+    `https://www.googleapis.com/books/v1/volumes?q=js&maxResults=40`
   );
-  const [isError, setIsError] = useState(false);
+
   useEffect(() => {
     setIsLoading(true);
     axios.get(url).then((res: any) => {
@@ -35,23 +34,23 @@ const BookStorePage: React.FC = () => {
   const sortedBooks = list.sort((a: BookItemModule, b: BookItemModule): any => {
     if (sort === "Newest") {
       return (
-        parseInt(b.volumeInfo.publishedDate.substring(0, 4)) -
-        parseInt(a.volumeInfo.publishedDate.substring(0, 4))
+        parseInt(b.volumeInfo.publishedDate) -
+        parseInt(a.volumeInfo.publishedDate)
       );
     } else if (sort === "Oldest") {
       return (
-        parseInt(a.volumeInfo.publishedDate.substring(0, 4)) -
-        parseInt(b.volumeInfo.publishedDate.substring(0, 4))
+        parseInt(a.volumeInfo.publishedDate) -
+        parseInt(b.volumeInfo.publishedDate)
       );
     }
   });
-  const handelSort = () => {
-    return sortedBooks;
+  const handelSort = (value: string) => {
+    return setSort(value);
   };
 
   return (
     <div className="background--img">
-      <div className="container">
+      <div className="grid grid--1x2 ">
         <form className="input--group">
           <SearchInput onChange={handelChange} value={value} />
           <SearchButton
@@ -63,7 +62,7 @@ const BookStorePage: React.FC = () => {
           />
         </form>
       </div>
-      <div className=" container select--item">
+      <div className=" container select--item sort_input">
         <Select
           defaultValue="Sort"
           style={{ width: 120 }}
