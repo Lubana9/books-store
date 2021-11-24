@@ -77,7 +77,7 @@ const BookStorePage: React.FC = () => {
       </div>
 
       {loading ? (
-        <div>Loading ...</div>
+        <Skeleton active />
       ) : (
         <>
           <div className="card--container grid grid--1x4">
