@@ -1,18 +1,23 @@
+import { Children } from "react";
+
 import { Select } from "antd";
+import { BookItemModule } from "src/modules/bookItem";
 export type SortProps = {
-  data: string;
-  onSort: (value: string) => void;
+  onSort: (e: any) => void;
 };
-const SortBooks: React.FC<SortProps> = ({ data, onSort }) => {
+const SortBooks: React.FC<SortProps> = ({ onSort }) => {
   return (
     <Select
       size="large"
-      defaultValue="all"
+      defaultValue="Sort"
       style={{ width: 120 }}
       onChange={onSort}
     >
-      <Select value="All">All</Select>
-      <Select value={data}>{data}</Select>
+      <Select value="Sort" disabled>
+        Sort
+      </Select>
+      <Select value="Newest">Newest</Select>
+      <Select value="Oldest">Oldest</Select>
     </Select>
   );
 };
