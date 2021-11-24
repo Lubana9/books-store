@@ -20,6 +20,7 @@ const SearchInput: React.FC<InputProps> = ({ onChange, value }) => {
       value={value}
       allowClear
       size="large"
+      type="search"
     />
   );
 };

@@ -13,9 +13,11 @@ const SearchButton: React.FC<ButtonProps> = ({ onClick, isLoading }) => {
   return (
     <Button
       size="large"
+      style={{ border: 0 }}
       icon={<SearchOutlined />}
       onClick={onClick}
       disabled={isLoading === Meta.loading}
+      ghost={true}
     />
   );
 };
