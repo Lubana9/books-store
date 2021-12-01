@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import BookCard from "@components/BookCard";
 import SearchInput from "@components/input";
 import SearchButton from "@components/SearchButton";
 import "@styles/style.css";
-import SortBooks from "@components/SortBooks";
-import { Select, Skeleton, Space } from "antd";
+import { Select, Skeleton } from "antd";
 import axios from "axios";
 import { BookItemModule } from "src/modules/bookItem";
 
@@ -43,6 +42,7 @@ const BookStorePage: React.FC = () => {
         parseInt(b.volumeInfo.publishedDate)
       );
     }
+    return 0;
   });
   const handelSort = (value: string) => {
     return setSort(value);
