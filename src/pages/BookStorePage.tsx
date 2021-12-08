@@ -47,20 +47,22 @@ const BookStorePage: React.FC = () => {
   const handelSort = (value: string) => {
     return setSort(value);
   };
-
+  const handelSubmit = (e: any) => {
+    e.preventDefault();
+    setUrl(
+      `https://www.googleapis.com/books/v1/volumes?q=${value}&maxResults=40`
+    );
+  };
   return (
     <div className="background--img">
       <div className="grid grid--1x2 ">
-        <form className="input--group">
-          <SearchInput onChange={handelChange} value={value} />
-          <SearchButton
-            onClick={() =>
-              setUrl(
-                `https://www.googleapis.com/books/v1/volumes?q=${value}&maxResults=40`
-              )
-            }
+        <div className="input--group">
+          <SearchInput
+            onSubmit={handelSubmit}
+            onChange={handelChange}
+            value={value}
           />
-        </form>
+        </div>
       </div>
       <div className=" container select--item sort_input">
         <Select
