@@ -6,6 +6,7 @@ import SearchInput from "@components/input";
 import "@styles/style.css";
 import { Select, Skeleton } from "antd";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { BookItemModule } from "src/modules/bookItem";
 
 const BookStorePage: React.FC = () => {
@@ -52,6 +53,10 @@ const BookStorePage: React.FC = () => {
       `https://www.googleapis.com/books/v1/volumes?q=${value}&maxResults=40`
     );
   };
+  const openInNewTab = (url: string): void => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
   return (
     <div className="background--img">
       <div className="grid grid--1x2 ">
@@ -83,7 +88,13 @@ const BookStorePage: React.FC = () => {
         <>
           <div className="card--container grid grid--1x4">
             {sortedBooks.map((data: BookItemModule) => {
-              return <BookCard key={data.id} data={data} />;
+              return (
+                <BookCard
+                  key={data.id}
+                  data={data}
+                  onClick={() => openInNewTab(`${data.volumeInfo.infoLink}`)}
+                />
+              );
             })}
           </div>{" "}
         </>

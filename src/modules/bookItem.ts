@@ -7,6 +7,7 @@ export type BookItemApi = {
     imageLinks: {
       thumbnail: string;
     };
+    infoLink: string;
   };
 };
 
@@ -19,6 +20,7 @@ export type BookItemModule = {
     imageLinks: {
       thumbnail: string;
     };
+    infoLink: string;
   };
 };
 

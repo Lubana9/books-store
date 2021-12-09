@@ -4,12 +4,13 @@ import { Card } from "antd";
 import { BookItemModule } from "src/modules/bookItem";
 export type CardProps = {
   data: BookItemModule;
-  onClick?: (e: React.MouseEvent) => void;
+  onClick: (value: React.MouseEvent) => void;
 };
-const BookCard: React.FC<CardProps> = ({ data }) => {
+const BookCard: React.FC<CardProps> = ({ data, onClick }) => {
   const { Meta } = Card;
   return (
     <Card
+      onClick={onClick}
       hoverable
       style={{ width: 240 }}
       cover={<img alt="bookimg" src={data.volumeInfo.imageLinks?.thumbnail} />}
