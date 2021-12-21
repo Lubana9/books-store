@@ -6,7 +6,6 @@ import SearchInput from "@components/input";
 import "@styles/style.css";
 import { Select, Skeleton } from "antd";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { BookItemModule } from "src/modules/bookItem";
 
 const BookStorePage: React.FC = () => {
